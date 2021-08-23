@@ -1,0 +1,10 @@
+.modal {
+    max-height: 100% !important;
+}
+
+.fixed
+{
+    position:fixed;
+    background:gray;
+
+}

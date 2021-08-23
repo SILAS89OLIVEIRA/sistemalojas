@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+ 
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/bootstrap.css"> 
+
+  <link rel="stylesheet" href="css/style.css"> 
+  <link rel="stylesheet" href="css/jquery-ui.css"> 
+
+<link href="../node_modules/material-icons/iconfont/material-icons.css" rel="stylesheet">
+
+  <link rel="shortcut icon" href="img/favicon/android-icon-48x48.png" />
+
+  
+        <script src="js/combox.js"></script>
+      
+
+
+  <title>THINK! LOJAS | Estoque Loja</title>
+</head>
+<body>
+ 
+
+
+
+
+      
+    <div class="wrapper">
+        <!-- Sidebar Holder -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                  <a class="navbar-brand" href="indexlojas.html"><img class="img-fluid" src="img/logo_branca1.png"/></a></a>
+
+            </div>
+
+            <ul class="list-unstyled components">
+
+                <li>
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="material-icons left-silas">attach_money</i> Metas</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="indexlojas.html">Meta Lojas</a>
+                        </li>
+                        <li>
+                            <a href="acompanhamentodemetas_vendedora.html">Meta Vendedoras</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="MovimentacaoLoja.html"><i class="material-icons left-silas"> store</i>Movimentações Loja</a>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="material-icons right-silas">local_shipping</i>Estoques</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a href="EstoqueLoja.html">Estoque Loja</a>
+                        </li>
+                        <li>
+                            <a href="estoquefornecedor.html">estoque Fornecedor</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="PedidoTroca.html"><i class="material-icons left-silas">compare_arrows</i> Pedido - Troca</a>
+                </li>
+                <li>
+                    <a href="PedidoTrocaCaixa.html"><i class="material-icons left-silas">add_shopping_cart</i> Lançamento Caixa</a>
+                </li>
+                                <li>
+                    <a href="Brinde.html"><i class="material-icons left-silas">redeem</i> Brinde</a>
+                </li>
+            </ul>
+
+           <!-- <ul class="list-unstyled CTAs">
+                <li>
+                    <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a>
+                </li>
+                <li>
+                    <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a>
+                </li>
+            </ul>-->
+        </nav>
+
+        <!-- Page Content Holder -->
+
+
+        <div id="content">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="navbar-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+        
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                         <!--   <li class="nav-item active">
+                                <a class="nav-link" href="#">Page</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Page</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Page</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Page</a>
+                            </li>-->
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+ 
+<main>
+
+ <div class="container-fluid"> 
+
+    <div class="row">
+      <!--retirar pedding left do bootstrap css   (padding-left: 0px;) no .col-12-->
+      <div class = "col-12">
+        <h1 class="page-header">Estoque Loja</h1>
+
+ </div>
+
+
+                    <div id="filtros">
+                        <div id="formFiltros" style="background: rgb(247, 247, 247); display: none;">
+                           
+
+                            <div class="row">                               
+                              
+                                <div class=" col-2" >
+                                  <div>
+                                      <label for="revistaNum" class="black-text bold" ><b>Escolha a Revista</b></label>
+                                      <select id="revistaNum" class="combobox input-sm browser-default" style="background: rgb(247, 247, 247);" > 
+                                      
+                                      </select>
+                                  </div>
+                                </div>
+                              
+                                                    
+                              
+                                <div class="input-field col-2">
+                                    <label for="for" class="black-text"><b>Fornecedor</b></label>
+                                    <input type="number" class="form-control input-sm" id="for"  />
+                                </div>
+
+                                <div class="input-field col-2">
+                                    <label for="pag" class="black-text"><b>Página</b></label>
+                                    <input type="number" class="form-control input-sm" id="pag" />
+                                </div>
+                                
+                                <div class="input-field col-2">
+                                    <label for="referencia" class="black-text"><b>Referência</b></label>
+                                    <input type="number" class="form-control input-sm" id="referencia" />
+                                </div>
+
+                                <div class="input-field col-2">
+                                    <label for="item" class="black-text"><b>Item</b></label>
+                                    <input type="number" class="form-control input-sm" id="item" />
+                                </div>
+
+                                <div class="input-field col-3">
+                                    <label for="estq" class="black-text"><b>Estoque menor igual à:</b></label>
+                                    <input type="number" class="form-control input-sm" id="estq" />
+                                </div>
+                                                    
+                              
+                                <div class="inputMaisBaixo input-field col-2">
+                                   <button class="btn btn-lg bg-primary text-white" type="submit" onclick="filtrarEstoque()">Filtrar<i class="material-icons right-silas">send</i>
+                                  </button>
+                                </div>
+                            </div>
+                        </div>
+                       
+                      
+                        <button id="btnFltros" class="btn bg-primary text-white"><i class="material-icons left rotate">expand_more</i>Filtros</button>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+            <div class="clearfix"></div>
+
+            <div class="row"> 
+
+                <div class="col-9">
+                    <div style="overflow: auto;  max-height: 400px;" id="tabelaid">
+                        <table  class="table table-bordered table-striped table-responsive">
+
+                        </table>
+
+                    </div>
+                    <div class="menu" style="text-align: center;">    
+                        <ul id="pagination-demo" class="pagination-sm page-link"></ul>
+                    </div>  
+
+                </div>   <!-- /.col-xs-10 -->
+                <div class="col-3">
+                    <div>
+                        <div style="padding-bottom: 10%;">
+                            <h6 id="hora">HORA: </h6>
+                            <h6 id="data">DATA: </h6>
+                        </div>
+                        <div>
+                            <p><b>Total Estoque</b></p>
+                            <input disabled type="text" id="totalestq" placeholder="TOTAL ESTOQUE" /><br>
+                        </div>
+                        <div>
+                            <p><b>Valor Total Estoque</b></p>
+                            <input disabled type="text" id="totalvenda" placeholder="VALOR TOTAL ESTOQUE" />
+                        </div>
+
+                    </div>
+
+
+
+                </div>   
+
+            </div>
+        </main>
+        <script src="js/jquery.js"></script>
+         <script src="js/custom/jquery-2.1.4.min.js"></script>
+          <script src="js/custom/jquery-1.10.2.js"></script>
+          
+
+              <script type="text/javascript" charset="UTF-8" src="js/jquery.twbsPagination.js"></script>
+   
+<script src="js/popper.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/layoutbase.js"></script>
+
+<script src="js/jquery-ui.js"></script>
+<script src="js/util.js"></script>
+
+
+
+
+
+         
+        
+ 
+      
+       
+        <script type="text/javascript" charset="UTF-8" src="js/EstoqueLoja.js"></script>
+       
+        <script>
+          $(document).ready(function(){
+            if(retornoLoja() === 15 || retornoLoja() === '15'){
+              $('#trocarlink').attr('href','metapromocao.html');
+            }
+          });
+        </script>
+
+
+
+
+
+          </body>
+          </html>

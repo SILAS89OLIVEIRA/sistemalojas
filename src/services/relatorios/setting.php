@@ -1,0 +1,9 @@
+<?php
+$server="192.168.21.100";
+$db="bd_prontaentrega";
+$user="postgres";
+$pass="super";
+$version="0.9d";
+$pgport=5432;
+$pchartfolder="./class/pchart2";
+?>

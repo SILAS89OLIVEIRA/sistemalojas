@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/bootstrap.css"> 
+
+  <link rel="stylesheet" href="css/style.css"> 
+  <link rel="stylesheet" href="css/jquery-ui.css"> 
+
+<link href="../node_modules/material-icons/iconfont/material-icons.css" rel="stylesheet">
+
+  <link rel="shortcut icon" href="img/favicon/android-icon-48x48.png" />
+
+
+
+  <title>THINK! LOJAS | Lançamento Caixa</title>
+</head>
+<body>
+ <!-- MENU -->
+
+
+
+<!--
+
+
+ <nav class="navbar bg-primary">
+  <a class="navbar-brand" href="pages/PedidoTroca.html"><img class="img-fluid" src="img/logo_branca1.png"/></a></a>
+
+</nav>-->
+
+
+
+
+<!--https://bootstrapious.com/p/bootstrap-sidebar-->
+
+<!--
+<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
+
+
+
+  
+<div id="mySidenav" class="sidenav navbar-expand-lg">
+
+  <button class="dropdown-btn" >
+    <i class="material-icons chevron_right">chevron_right</i> Produtos 
+  </button>
+  <div class="dropdown-container">
+    <a href="#" onclick="closeNav()"><i class="material-icons">add_circle_outline</i> Cadastro de Produtos</a>
+    <a href="#" onclick="closeNav()"><i class="material-icons">search</i> Consulta Produtos</a>
+    </div>
+
+    <button class="dropdown-btn" >
+    <i class="material-icons chevron_right">chevron_right</i> Romaneios 
+  </button>
+  <div class="dropdown-container">
+    <a href="#" onclick="closeNav()"><i class="material-icons">add_circle_outline</i> Cadastro de Romaneio</a>
+    <a href="#" onclick="closeNav()"><i class="material-icons">search</i> Consulta de Romaneio</a>
+  </div>
+
+    <button class="dropdown-btn" ><i class="material-icons chevron_right">chevron_right</i> Consultas 
+  
+  </button>
+  <div class="dropdown-container">
+    <a href="#" onclick="closeNav()"><i class="material-icons">trending_up</i> Venda/Estoque</a>
+    <a href="#" onclick="closeNav()"><i class="material-icons">compare_arrows</i> Movimentações</a>
+    <a href="#" onclick="closeNav()"><i class="material-icons">shuffle</i> Consulta Básica</a>
+  </div>
+
+    <button class="dropdown-btn" ><i class="material-icons chevron_right">chevron_right</i> Retro Logística 
+  
+  </button>
+  <div class="dropdown-container">
+    <a href="#" onclick="closeNav()"><i class="material-icons">input</i> Consulta Entrada</a>
+    <a href="#" onclick="closeNav()"><i class="material-icons">replay</i> Consulta Devolução</a>
+  </div>
+
+
+  
+</div>
+
+
+
+
+<div id="main">
+  <h2>Sidenav Push Example</h2>
+  <p>Click on the element below to open the side navigation menu, and push this content to the right. Notice that we add a black see-through background-color to body when the sidenav is opened.</p>
+  
+</div>
+
+
+-->
+
+
+
+
+<div class="wrapper">
+  <!-- Sidebar Holder -->
+    <nav id="sidebar">
+            <div class="sidebar-header">
+                  <a class="navbar-brand" href="indexlojas.html"><img class="img-fluid" src="img/logo_branca1.png"/></a></a>
+
+            </div>
+
+            <ul class="list-unstyled components">
+
+                <li>
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="material-icons left-silas">attach_money</i> Metas</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="indexlojas.html">Meta Lojas</a>
+                        </li>
+                        <li>
+                            <a href="acompanhamentodemetas_vendedora.html">Meta Vendedoras</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="MovimentacaoLoja.html"><i class="material-icons left-silas"> store</i>Movimentações Loja</a>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="material-icons right-silas">local_shipping</i>Estoques</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a href="EstoqueLoja.html">Estoque Loja</a>
+                        </li>
+                        <li>
+                            <a href="estoquefornecedor.html">estoque Fornecedor</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="PedidoTroca.html"><i class="material-icons left-silas">compare_arrows</i> Pedido - Troca</a>
+                </li>
+                <li>
+                    <a href="PedidoTrocaCaixa.html"><i class="material-icons left-silas">add_shopping_cart</i> Lançamento Caixa</a>
+                </li>
+                                <li>
+                    <a href="Brinde.html"><i class="material-icons left-silas">redeem</i> Brinde</a>
+                </li>
+            </ul>
+
+           <!-- <ul class="list-unstyled CTAs">
+                <li>
+                    <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a>
+                </li>
+                <li>
+                    <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a>
+                </li>
+            </ul>-->
+        </nav>
+
+
+            <input type="text" id="databusca" style="font-size:12px; margin-left: 0px; display:none;" />
+            <input type="text" id="caixafechado" value="0" style="font-size:12px; margin-left: 0px; display:none;" />
+
+            <!-- Page Content Holder -->
+
+           
+              <div id="content">
+
+                <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+                  <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="navbar-btn">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </button>
+
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                      <ul class="nav navbar-nav ml-auto">
+                         <!--   <li class="nav-item active">
+                                <a class="nav-link" href="#">Page</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Page</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Page</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Page</a>
+                              </li>-->
+                            </ul>
+                          </div>
+                        </div>
+                      </nav>
+
+
+ <main>
+
+
+                      <div class="container-fluid"> 
+
+                        <div class="row">
+                          <!--retirar pedding left do bootstrap css   (padding-left: 0px;) no .col-12-->
+                          <div class = "col-12">
+                            <h1>Think - Lançamento de Caixa </h1>
+
+                          </div>
+
+                       </div>
+                          <div class="col-12" style="display: none;" id="formFiltros">
+                           <div class="input-group">
+
+                            <div class="input-field col-3">  
+                              <input id="dataInicio" type="text" name="dataInicio" class="datepicker" placeholder="Data Caixa">
+                            </div>
+
+                            <div class="input-field col-3">
+                              <button type="submit" id="btnFiltrar" class="btn btn-primary btn-lg text-white">Filtrar</button>
+                            </div>
+
+
+                          </div>
+                        </div>
+
+                      </br>
+
+
+
+  <div>
+    <button id="btnFltros" class="btn bg-primary text-white"><i
+        class="material-icons left rotate">expand_more</i>Filtros</button>
+  
+  </div>
+
+               </br>
+ 
+
+
+           <div class="clearfix"></div>
+
+
+           <div  class="hide col-10 divSobrepor" id="divSobrepor">
+
+            <div class="row">
+
+              <div class="col-10 input-field">
+
+
+                <div class="row">
+
+                  <div class="col-3 input-field" >
+
+                    <label for="valorTotal" style="text-align: center;" class="black-text bold">VALOR TOTAL:       
+                  <input type="text" disabled style="color: black; text-align: center;" id="valorTotal" class=""/></label>  
+
+                    </div>
+                    <div class="col-3 input-field" >
+                      <label for="valorFalta" style="text-align: center;" class="black-text bold ">VALOR QUE FALTA:
+                        <input type="text" disabled style="color: black; text-align: center;" id="valorFalta" class=""/></label>
+                      </div>
+
+
+
+
+    
+
+
+
+
+
+
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <div  style="overflow: auto; max-height: 550px; margin-top: 5rem;" class="responsive-table table bordered highlight input-sm striped" id = "tablePagamento"> </div>
+
+
+<div class="input-field col-12" style="margin-top: 1rem">
+
+
+                      <button type="submit" class="btn waves-effect text-white waves-light bg-danger lighten-2 left-align"  id="btncancelar"><i class="material-icons right">clear</i>SAIR</button>  
+
+
+
+
+                      <button type="submit"  class="btn btn-primary btn-sm right" id="btninserir" >INSERIR PAGAMENTO <i class="material-icons right">send</i></button>  
+
+
+
+
+
+  </div>
+
+
+              </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div  class="hide col-10 divInserirSobrepor"  id="divInserirSobrepor">
+
+                <div class="row">
+
+                  <div class="col-12 input-field">
+
+
+                   <div class="row">
+
+                   </br>
+                 </br>
+               </br>
+             </br>
+           </br>
+
+
+     <div class="input-field col-12" id="form-group-formapagamento" style="padding-top: 0px;" >
+
+
+
+            <label for="pagamento" class="black-text bold";>FORMA PAGAMENTO :</label><br>
+
+            <select class="combobox input-sm browser-default" id="pagamento">
+              <option value="PA">Sem Registro</option>
+            </select>     
+
+
+
+
+          </div>
+
+
+
+
+
+
+
+          <div class="input-field col-3" id="form-group-creditodebito"  >
+           <label for="creditodebito" class="black-text bold">TIPO :</label><br>
+
+           <select class="combobox input-sm creditodebito col-12 browser-default" id="creditodebito">
+            <option value="PA">Selecione...</option>
+            <option value="C">CRÉDITO</option>
+            <option value="D">DÉBITO</option>
+          </select>     
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+        <div class="input-field col-2" id="form-group-valor" >
+          <label for="valor" id="labelValor"  class="black-text bold ">VALOR :</label>
+          <input type="number" step="0.01" name="valor" id="valor" class=""/>
+        </div>                  
+
+
+        <div class="input-field col-2" id="form-group-frete"> 
+          <label for="valor" id="labelFrete"  class="black-text bold ">FRETE :</label><br>
+          <input type="number" step="0.01" name = "frete" id="frete" class=""/></div>    
+
+
+
+
+
+          <div class="input-field col-2" id="form-group-numauto">
+            <label for="numauto" id="labelAutorizacaoDocumento" class="black-text bold ">Nº AUTORIZAÇÃO :</label><br>
+            <input type="text"  id="numauto" name ="numauto" />
+          </div>
+
+          <div class="input-field col-2" id="form-group-numterminal">
+            <label for="numterminal" id="labelAutorizacaoDocumentoterminal" class="black-text bold ">Nº EST. CARTÃO:</label><br>
+            <input type="text"  name ="numterminal" id="numterminal" />
+          </div>
+
+
+
+
+          <div class="input-field col-2" id="form-group-for-defeito">
+            <label for="defeito" class="black-text bold" >CÓDIGO FORNECEDOR :</label><br>
+            <select class="combobox input-sm formPagamento col-12 browser-default" id="defeito">
+              <option value="PA">Sem Registro</option>
+            </select>     
+          </div>
+
+
+          <div class="col-2">
+            <label for="cpf" id="cpfcnpjcartao">CPF/CNPJ CLIENTE:</label><br>
+            <input type="text" id="cpfcnpjcartao1" class=""/>
+          </div>
+
+
+          <div class="input-field col-3" id="form-group-codfor">
+            <label for="codfor" id='Labelcodfor' class="black-text bold ">COD. FORNECEDOR:</label><br>
+            <input type="text"  id="codfor" class=""/>
+          </div>
+          
+
+
+          <div class="input-field col-3" id="form-group-lojas">
+            <label for="lojas" class="black-text bold" >LOJA PARCEIRA :</label><br>
+            <select class="combobox input-sm formlojas  browser-default" name="loj_num" id="lojas">
+              <option value="PA">Sem Registro</option>
+            </select>     
+
+          </div>
+
+
+          <div id ="temporeal" class="col-12 row">
+            <div class="input-field col-3">  
+              <label for="dataCartao">Dia:</label>              
+              <input id="datacartao" type="text" class="datepicker" name="dataCartao">
+            </div>
+
+
+            <div class="input-field col-3"> 
+              <label for="horacartao">Hora Cartão:</label>                
+              <input id="horacartao" type="time" class="text" name="horaCartao">
+            </div>
+
+
+
+            <div class="input-field col-2" id="form-group-lojas" style="margin-top: 18px">
+             <label for="lojas" class="black-text bold" >LOJA PARCEIRA :</label><br>
+              <select class="combobox input-sm formlojas browser-default" id="lojas1">
+                <option value="PA">Sem Registro</option>
+              </select>     
+            </div>
+          </div>
+
+
+          <div class="input-field col-2" id="form-group-numcheques" style="padding-top: 0px; left: 0px;">
+            <label for="numcheques" style="text-align: left; top:inherit;" class="black-text bold ">QTD. CHEQUES :</label><br>
+            <input type="number" min="0" style="color: black; text-align: left;" id="numcheques" class=""/>
+          </div>
+
+          <div class="input-field col-2" id="form-group-Desconto" style="padding-top: 0px; left: -8px;">
+            <input id="desconto" type="checkbox" name="desconto">
+            <label for="desconto" class="black-text">Aplicar Desconto<label>
+
+
+
+            </div>
+
+            <div class="input-field col-2" id="form-group-Percentual">
+              <label for="numauto" id="LabelPercentual"  class="black-text bold ">Percentual:</label><br>
+              <input type="text"  id="Percentual" class=""/>
+
+
+            </div>
+
+            <div class="input-field col-2" id="form-group-Valor_Final" >
+
+              <label for="numauto" id="LabelValorFinal" style="text-align: left; top:inherit;" class="black-text bold ">Valor Desconto:</label><br>
+              <input type="text" style="color: black; text-align: left;" id="ValorFinal" class=""/>
+
+
+
+            </div>
+
+
+
+
+          </div>
+
+          <div class="input-field col-2" id="form-group-Express" >
+            <input id="express" type="checkbox" name="express">
+            <label for="express" class="black-text">Express<label>
+            </div>
+
+          </div>
+
+
+
+
+        
+            <!--style="width: 120%"-->
+
+            <div class="input-field col-2" id="form-group-bandeira" style="margin-top: 8px; margin-right: 50px;">
+              <label for="bandeira" class="black-text bold">BANDEIRA CARTÃO:</label><br>
+              <select class="combobox input-sm formPagamento browser-default" id="bandeira">
+                <option value="PA">Sem Registro</option>
+              </select>     
+            </div>
+
+            <div class="input-field col-2" id="form-group-parcelas" >
+              <label for="parcelas"  class="black-text bold ">PARC. :</label><br>
+              <input type="number" min="0" max="25"  id="parcelas" class=""/>
+            </div>
+
+
+
+            <div class="input-field col-2" id="form-group-acrescimo" >
+              <input id="acrescimo" type="checkbox" name="acrescimo">
+              <label for="acrescimo" class="black-text">Aplicar Acrésc.<label>
+
+
+
+              </div>
+
+              <div class="input-field col-2" id="form-group-PercentualA" style="padding-top: -2px; left: -45px;">
+                <label for="PercentualA" id="LabelPercentualA" style="text-align: left; top:inherit;" class="black-text bold ">Perc.:</label><br>
+                <input type="text" style="color: black; text-align: left;" id="PercentualA" class=""/>
+
+
+              </div>
+
+              <div class="input-field col-2" id="form-group-Valor_FinalA" style="width: 15%; padding-top: -2px; left:0px;">
+                <label for="ValorFinalA" id="LabelValorFinalA" style="text-align: left; top:inherit;" class="black-text bold ">VAL. ACRESC.:</label><br>
+                <input type="text" style="color: black; text-align: left;" id="ValorFinalA" class=""/>
+
+              </div>  
+
+
+
+
+
+
+                        <!--<div class="col s5 input-field" >
+
+                            <label for="descricaoproduto" style="text-align: center;" class="black-text bold">VALOR TOTAL:       
+                                <input type="text" disabled style="color: black; text-align: center;" id="descricaoproduto" class=""/></label>  
+
+                        </div>
+                        <div class="col s5 input-field" >
+                            <label for="valorFalta" style="text-align: center;" class="black-text bold ">VALOR QUE FALTA:
+                                <input type="text" disabled style="color: black; text-align: center;" id="valorFalta" class=""/></label>
+                              </div>-->
+
+
+
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+</br>
+
+
+
+
+                <div class="input-field col-12" style="margin-top: -1rem">
+                  <button type="submit" class="btn waves-effect text-white waves-light bg-primary darken-1 right" id="btnsalvarpag">SALVAR<i class="material-icons right">save</i></button>  
+
+
+
+                  <button type="submit" class="btn waves-effect text-white waves-light bg-danger lighten-2  left-align" id="btnsairpag"><i class="material-icons right">clear</i> SAIR</button>  
+
+                </div>
+                
+                <div  style="overflow: initial; max-height: 100%; margin-top: 5rem;" class="responsive-table table bordered highlight input-sm striped" id = "tablePagamento"> </div>
+
+
+
+              </div>
+
+
+ </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="row col-12">
+
+              <div class="row">
+                <div class="col-10">
+                  <div style="overflow: auto; max-height: 550px;"  class="table table-responsive table-striped" id = "tablePedido"> </div>
+                </div>
+
+
+
+
+                <div class="col-2">
+                  <div>
+                    <p>Data Caixa</p>
+                    <input type="text" disabled placeholder="Data Caixa" id="data_caixa" />
+                  </div>    
+
+                  <div>
+                    <p>Valor Total Caixa</p>
+                    <input type="text" disabled placeholder="Valor Total Caixa"  id="valor_total_pedidos" />
+                  </div>
+
+                  <div id="trocatroca">
+                    <p>Valor Total Digitado</p>
+                    <input type="text" disabled placeholder="Valor Total Digitado" id="valor_total_trocas" /> 
+                  </div>
+
+                  <div id="observacao">
+                    <p>Observação:</p>
+                    <textarea id="observacao1" name="comentário" rows="10" cols="40" style="margin: 2px; height: 100px; width: 100%"></textarea>
+                    
+                    
+                    
+                    <button type="submit" class="btn btn-sm bg-primary text-white"  id="btnsalvarobs">SALVAR<i class="material-icons right">save</i></button>  
+                  </div>                    
+
+
+</br>
+
+                  <div class="clearfix"></div>
+
+
+
+                    <div>
+                      <!--<a href="meta.html" style="margin-bottom: 20px"  class="btn waves-effect white-text waves-light blue darken-1 btn-large right">Metas<i class="material-icons right">subdirectory_arrow_right</i></a>-->
+                      <button type="submit" disabled class="btn btn-sm bg-primary text-white"  id="btnfecharcaixa"><i class="material-icons right">subdirectory_arrow_right</i>FECHAR CAIXA</button>  
+
+                    </div>
+</br>
+                    
+                    <div>
+
+                      <button type="submit" class="btn btn-sm bg-success text-white" style="display: none;"  id="btncaixafechado"><i class="large material-icons right ">check</i>CAIXA FECHADO</button>  
+
+                    </div>
+
+                    </br>
+
+
+                    <div>
+                      <!--<a href="meta.html" style="margin-bottom: 20px"  class="btn waves-effect white-text waves-light blue darken-1 btn-large right">Metas<i class="material-icons right">subdirectory_arrow_right</i></a>-->
+                      <button type="submit"  class="btn btn-sm bg-primary text-white"  id="btnvisualizar"><i class="material-icons right">print</i>RELATÓRIO</button>  
+
+                    </div>
+
+
+
+
+                  </div>
+
+</div>
+
+
+                  <div class="clearfix"></div>
+
+
+
+                  <div style="overflow: auto;" class="table-responsive table-condensed input-sm col-12" id="tabelatroca">
+
+                  </div>
+                </div> 
+              </div>
+
+
+
+
+
+
+            </div>
+          </div>
+
+        </main>
+
+
+
+
+
+      </div>
+
+
+
+
+
+
+     
+      <script src="js/jquery.js"></script>
+      <script src="js/popper.js"></script>
+      <script src="js/bootstrap.js"></script>
+      <script src="js/jquery-ui.js"></script>
+      <script src="js/util.js"></script>
+      <script src="js/layoutbase.js"></script>
+      <script type="text/javascript" charset="UTF-8" src="js/PedidoTrocaCaixa.js"></script>
+
+
+
+
+
+    </body>
+    </html>
+

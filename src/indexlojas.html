@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link rel="stylesheet" href="css/bootstrap.css"> 
+
+  <link rel="stylesheet" href="css/style.css"> 
+
+  <link rel="stylesheet" href="css/jquery-ui.css"> 
+
+  <link href="../node_modules/material-icons/iconfont/material-icons.css"rel="stylesheet">
+
+  <link rel="shortcut icon" href="img/favicon/android-icon-48x48.png" />
+
+
+
+  <title>THINK! LOJAS | Meta Geral</title>
+</head>
+<body>
+
+      
+    <div class="wrapper">
+        <!-- Sidebar Holder -->
+        <nav id="sidebar">
+          
+            <div class="sidebar-header">
+                  <a class="navbar-brand" href="indexlojas.html"><img class="img-fluid" src="img/logo_branca1.png"/></a></a>
+
+            </div>
+
+            <ul class="list-unstyled components">
+
+                <li>
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="material-icons left-silas">attach_money</i> Metas</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="indexlojas.html">Meta Lojas</a>
+                        </li>
+                        <li>
+                            <a href="acompanhamentodemetas_vendedora.html">Meta Vendedoras</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="MovimentacaoLoja.html"><i class="material-icons left-silas"> store</i>Movimentações Loja</a>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="material-icons right-silas">local_shipping</i>Estoques</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a href="EstoqueLoja.html">Estoque Loja</a>
+                        </li>
+                        <li>
+                            <a href="estoquefornecedor.html">estoque Fornecedor</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="PedidoTroca.html"><i class="material-icons left-silas">compare_arrows</i> Pedido - Troca</a>
+                </li>
+                <li>
+                    <a href="PedidoTrocaCaixa.html"><i class="material-icons left-silas">add_shopping_cart</i> Lançamento Caixa</a>
+                </li>
+                                <li>
+                    <a href="Brinde.html"><i class="material-icons left-silas">redeem</i> Brinde</a>
+                </li>
+            </ul>
+
+           <!-- <ul class="list-unstyled CTAs">
+                <li>
+                    <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a>
+                </li>
+                <li>
+                    <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a>
+                </li>
+            </ul>-->
+        </nav>
+
+        <!-- Page Content Holder -->
+
+
+    <div id="content">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="navbar-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+        
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                         <!--   <li class="nav-item active">
+                                <a class="nav-link" href="#">Page</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Page</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Page</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Page</a>
+                            </li>-->
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+<main>
+
+<div class="container-fluid"> 
+
+    <div class="row">
+      <!--retirar pedding left do bootstrap css   (padding-left: 0px;) no .col-12-->
+      <div class = "col-12">
+        <h1 class="page-header">Acompanhamento de metas</h1>
+
+ </div>
+
+
+
+
+        <form class="col-12" action="javascript:void(0);" method="GET" id="formFiltroData">
+          <div class="input-group">
+
+
+
+            <div class="input-field col-3">  
+
+              <input id="dataInicio" type="text" name="dataInicio" class="datepicker" placeholder="Data Inicial" >
+
+            </div>
+
+            <div class="input-field col-3">  
+
+              <input id="dataFim" type="text"  name="dataFim" class="datepicker"  placeholder="Data Final">
+
+            </div>
+
+
+                  <div class="input-field col-3">
+                   <button type="submit" id="btnFiltrarVendaDiaria" class="btn btn-primary bg-blue btn-lg text-white">Filtrar</button>
+                 </div>
+                 
+               </div>
+
+             </form> 
+
+         </br>
+         </br>
+         </br>
+
+
+        <div class="col-12">
+  
+                <table class="table" id="metas">
+
+
+                  <thead class="bg-primary text-white text-center">
+                    <tr>
+                      <th scope="col">Loja</th>
+                      <th scope="col">META</th>
+                      <th scope="col">TOTAL VENDA</th>
+                      <th scope="col">DIFERENÇAS</th>
+                      <th scope="col">PERCENTUAL META</th>
+                      <th scope="col">ATINGIU META</th>
+                      <th scope="col">ATUALIZADO</th>
+                    </tr>
+                  </thead>
+
+
+
+
+                  <tbody>
+                  </tbody> 
+                </table>
+
+
+  </br>
+
+
+                  <table class="table" id="totais">
+                  <thead class="bg-primary text-white text-center">
+                    <tr>
+                      <th scope="col">Período</th>
+                      <th scope="col">Meta total</th>
+                      <th scope="col">Venda total</th>
+                      <th scope="col">Diferença total</th>
+                      <th scope="col">Porcentagem total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody> 
+                </table>
+
+              </div>
+            </div>
+          </div>
+
+
+
+          <div class="row">
+            <div class="col-12">            
+              <span class="badge right-silas" data-badge-caption=""><b>Meta mensal:</b> R$ <span id="valorTotalMetaMensal"></span></span>
+            </div>
+          </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      </div>   
+
+
+</main>
+
+
+</div>
+
+
+
+
+
+
+<script src="js/jquery.js"></script>
+
+
+<script src="js/popper.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/layoutbase.js"></script>
+<script src="js/acompanhamentodemetas.js"></script>
+<script src="js/jquery-ui.js"></script>
+<script src="js/util.js"></script>
+
+
+
+<!--<script type="text/javascript">
+$('#dataFim').click(function(){
+    $('#btnFiltrarVendaDiaria').focus();
+})
+
+
+
+</script>-->
+
+
+
+
+<!--<script type="text/javascript">
+
+var inputs = $(':input').keypress(function(e){ 
+    if (e.which == 13) {
+       e.preventDefault();
+       var nextInput = inputs.get(inputs.index(this) + 1);
+       if (nextInput) {
+          nextInput.focus();
+       }
+    }
+});
+
+
+
+
+
+
+
+</script>-->
+
+</body>
+</html>
+
+
+
+
+
+
+

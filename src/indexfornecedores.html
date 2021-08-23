@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+ 
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/bootstrap.css"> 
+
+  <link rel="stylesheet" href="css/style.css"> 
+
+
+<link href="../node_modules/material-icons/iconfont/material-icons.css" rel="stylesheet">
+
+  <link rel="shortcut icon" href="img/favicon/android-icon-48x48.png" />
+
+
+
+  <title>LAYOUT BASE</title>
+</head>
+<body>
+ <!-- MENU -->
+
+
+
+<!--
+
+
+ <nav class="navbar bg-primary">
+  <a class="navbar-brand" href="pages/PedidoTroca.html"><img class="img-fluid" src="img/logo_branca1.png"/></a></a>
+
+</nav>-->
+
+
+
+
+<!--https://bootstrapious.com/p/bootstrap-sidebar-->
+
+<!--
+<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; Menu</span>
+
+
+
+  
+<div id="mySidenav" class="sidenav navbar-expand-lg">
+
+  <button class="dropdown-btn" >
+    <i class="material-icons chevron_right">chevron_right</i> Produtos 
+  </button>
+  <div class="dropdown-container">
+    <a href="#" onclick="closeNav()"><i class="material-icons">add_circle_outline</i> Cadastro de Produtos</a>
+    <a href="#" onclick="closeNav()"><i class="material-icons">search</i> Consulta Produtos</a>
+    </div>
+
+    <button class="dropdown-btn" >
+    <i class="material-icons chevron_right">chevron_right</i> Romaneios 
+  </button>
+  <div class="dropdown-container">
+    <a href="#" onclick="closeNav()"><i class="material-icons">add_circle_outline</i> Cadastro de Romaneio</a>
+    <a href="#" onclick="closeNav()"><i class="material-icons">search</i> Consulta de Romaneio</a>
+  </div>
+
+    <button class="dropdown-btn" ><i class="material-icons chevron_right">chevron_right</i> Consultas 
+  
+  </button>
+  <div class="dropdown-container">
+    <a href="#" onclick="closeNav()"><i class="material-icons">trending_up</i> Venda/Estoque</a>
+    <a href="#" onclick="closeNav()"><i class="material-icons">compare_arrows</i> Movimentações</a>
+    <a href="#" onclick="closeNav()"><i class="material-icons">shuffle</i> Consulta Básica</a>
+  </div>
+
+    <button class="dropdown-btn" ><i class="material-icons chevron_right">chevron_right</i> Retro Logística 
+  
+  </button>
+  <div class="dropdown-container">
+    <a href="#" onclick="closeNav()"><i class="material-icons">input</i> Consulta Entrada</a>
+    <a href="#" onclick="closeNav()"><i class="material-icons">replay</i> Consulta Devolução</a>
+  </div>
+
+
+  
+</div>
+
+
+
+
+<div id="main">
+  <h2>Sidenav Push Example</h2>
+  <p>Click on the element below to open the side navigation menu, and push this content to the right. Notice that we add a black see-through background-color to body when the sidenav is opened.</p>
+  
+</div>
+
+
+-->
+
+
+
+      
+    <div class="wrapper">
+        <!-- Sidebar Holder -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                  <a class="navbar-brand" href="index.html"><img class="img-fluid" src="img/logo_branca1.png"/></a></a>
+
+            </div>
+
+            <ul class="list-unstyled components">
+
+                <li>
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Produtos</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="#">Cadastro de Produtos</a>
+                        </li>
+                        <li>
+                            <a href="#">Consulta de Produtos</a>
+                        </li>
+
+                    </ul>
+                </li>
+                
+                <li>
+
+                                <li>
+                    <a href="#homeSubmenu1" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Romaneios</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu1">
+                        <li>
+                            <a href="#">Cadastro de Romaneio</a>
+                        </li>
+                        <li>
+                            <a href="#">Consulta de Romaneio</a>
+                        </li>
+
+                    </ul>
+                </li>
+                
+                <li>
+                                 <li>
+                    <a href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Consultas</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu2">
+                        <li>
+                            <a href="#">Venda/Estoque</a>
+                        </li>
+                        <li>
+                            <a href="#">Movimentações</a>
+                        </li>
+                                                <li>
+                            <a href="#">Consulta Basica</a>
+                        </li>
+
+                    </ul>
+                </li>
+
+                                                <li>
+                    <a href="#homeSubmenu3" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Retro Logistica</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu3">
+                        <li>
+                            <a href="#">Consulta Entradas</a>
+                        </li>
+                        <li>
+                            <a href="#">Consulta Devoluções</a>
+                        </li>
+
+                    </ul>
+                </li>
+            </ul>
+
+           <!-- <ul class="list-unstyled CTAs">
+                <li>
+                    <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a>
+                </li>
+                <li>
+                    <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a>
+                </li>
+            </ul>-->
+        </nav>
+
+        <!-- Page Content Holder -->
+        <div id="content">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="navbar-btn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav ml-auto">
+                            <li class="nav-item active">
+                                <a class="nav-link" href="#">Sair</a>
+                            </li>
+                          </ul>
+                    </div>
+                </div>
+            </nav>
+            
+            <h2>Collapsible Sidebar Using Bootstrap 4</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+            <div class="line"></div>
+
+            <h2>Lorem Ipsum Dolor</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+            <div class="line"></div>
+
+            <h2>Lorem Ipsum Dolor</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+            <div class="line"></div>
+
+            <h3>Lorem Ipsum Dolor</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="js/jquery.js"></script>
+
+
+<script src="js/popper.js"></script>
+<script src="js/bootstrap.js"></script>
+<script src="js/layoutbase.js"></script>
+
+</body>
+</html>

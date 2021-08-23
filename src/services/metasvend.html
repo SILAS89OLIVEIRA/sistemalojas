@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>think ! - Painel Metas Vendedoras</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="../bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="../dist/css/timeline.css" rel="stylesheet" type="tetx/css">
+    
+    <!-- Fornecedor -->
+    <link href="../dist/css/loja.css" rel="stylesheet" type="text/css">
+      
+    <!-- Custom CSS -->
+    <link href="../dist/css/sb-admin-2.css" rel="stylesheet" type="text/css">
+
+    <!-- Morris Charts CSS -->
+    <link href="../bower_components/morrisjs/morris.css" rel="stylesheet" type="text/css">
+    
+    <link href="../dist/css/jquery-ui.css" rel="stylesheet" type="text/css">
+    
+    <!-- Custom Fonts -->
+    <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+   <script src="../js/jquery-2.1.4.min.js"></script>
+
+  <script src="../js/jquery-ui.js"></script>
+    
+    <script src="../js/util.js"></script>  
+    <script src="../js/menu.js"></script>  
+    <script src="../js/combox.js"></script>
+ 
+    
+	<script>
+        
+         var $j = jQuery.noConflict();
+            var $jx = jQuery.noConflict();
+	 function carrega(){  
+	 var fat1 = $jx('#menunav');
+	 fat1.append(menu());
+	}
+	
+	$jx( document ).ready(function() {
+	carrega();
+	});
+	</script>
+   
+   <script type="text/javascript"> 
+            
+	$jx(document).ready(function(){
+
+     Chamada3();
+      
+        
+          function Chamada3 (id,urll){
+  
+                   
+var url = "http://192.168.0.31/consultameta.php?status=1";
+	
+         
+     $jx.ajax({
+   //"http://192.168.0.251:8082/ERPBABITA-1.0/webresources/com.babita.modeller.viewvendasfaturamento"
+    url : url,
+    type : "GET",
+    dataType : "json",
+   // data : "param-no",
+	success : function(html){
+	 // var fat = $jx('.'+id);
+	  var fat1 = $jx('#tablemeta');
+	  var sql = "";
+	 
+	  sql = sql +('<table id="tablemeta2" class="table table-responsive table-bordered table-hover table-striped table-condensed input-sm"><thead><tr class="success"><th>CÓD.</th><th>NOME</th><th>DATA INÍCIAL</th><th> DATA FINAL</th><th>VALOR PARALELO</th><th>VALOR REVISTA</th><th>VALOR ACESSÓRIO</th><th>STATUS</th></tr></thead>');
+	
+	  cont = 1;
+      cont2 = 1;
+        var html = html.data;
+	  $jx.each(html,function(key,value){
+	  
+     if(cont > 1){
+     
+            
+		    sql = sql +("<tr><td>"+cont2+"</td><td>"+value.ven_cod+" - "+value.nome+"</td><td>"+value.met_periodo_ini+"</td><td>"+value.met_periodo_fim+"</td><td>"+tratarValor(value.met_valrev)+"</td><td>"+tratarValor(value.met_valpar)+"</td><td>"+tratarValor(value.met_valaces)+"</td><td>"+value.status+"</td></tr></tbody>");
+			
+			cont = 1;
+            cont2 ++;
+			}else{
+			sql = sql +("<tbody><tr><td>"+cont2+"</td><td>"+value.ven_cod+" - "+value.nome+"</td><td>"+value.met_periodo_ini+"</td><td>"+value.met_periodo_fim+"</td><td>"+tratarValor(value.met_valrev)+"</td><td>"+tratarValor(value.met_valpar)+"</td><td>"+tratarValor(value.met_valaces)+"</td><td>"+value.status+"</td></tr>");
+			
+			cont = 2;
+			cont2 ++;
+			}
+        
+	  });
+        
+	 //	fat.append("</table>")	
+		sql = sql + ("</table>");
+        fat1.empty();
+ 
+      
+		fat1.append(sql);
+  
+	
+	}, error : function(e) {
+	   alert(e);
+	}
+	});
+	};  
+           var urlvendedora =  retornoUrlItensVendedora()+'vendedores.php'; 
+       
+        var dados ='';
+        $jx.ajax({
+				type: "GET",
+				url: urlvendedora,
+				data: dados,
+					  dataType : "json",
+				success: function(data)
+				{
+				console.log(data);
+ 
+          $jx('#metvend').html(comboxvalorvendedora("metvend",data,"numero","nome"));  //coloco na div o retorno da requisica 
+                }
+        });
+        
+         
+        
+        
+	  $jx("#bntmet").click(function(){
+			var dados = jQuery(this).serialize();
+         
+       
+             
+    
+     var vendedora = $jx('#metvend').val(); 
+     var revista = $jx('#metrev').val();
+     var paralelo = $jx('#metpara').val();
+     var acessorio = $jx('#metacess').val(); 
+          
+          revista = revista.replace(',','.');
+          paralelo = paralelo.replace(',','.');
+          acessorio = acessorio.replace(',','.');
+           
+   
+              
+     var dataini = $jx('#datepicker10').val();
+
+     var datafim = $jx('#datepicker11').val();
+        cont = 1;
+      cont2 = 1;
+         
+        $jx("#metpara").val('');
+            $jx("#metrev").val(''); 
+            $jx("#metvend").val('');
+            $jx("#metacess").val('');
+            $jx("#datepicker10").val('');
+            $jx("#datepicker11").val('');       
+     if(dataini === ""){
+        
+           alert("Data inicial é obrigatório");
+           return false;
+       }
+          if(datafim === ""){
+        
+            alert("Data final é obrigatório");
+           return false;
+       }    
+   
+       dataini =  dataini.slice(6,10)+'-'+dataini.slice(3,5)+'-'+dataini.slice(0,2);
+ 
+       datafim =  datafim.slice(6,10)+'-'+datafim.slice(3,5)+'-'+datafim.slice(0,2);
+          
+   
+      
+      
+    if(vendedora === '0' || vendedora === null || vendedora === ''){
+       
+       alert("Selecione Vendedora, obrigatório!!");
+           return false;
+     }
+          console.log(vendedora);
+       
+    if(revista === '0' || revista === null || revista === ''){
+        
+             alert("Selecione Vendedora, obrigatório!!");
+           return false;   
+    }
+          console.log(revista);
+ 
+    if(paralelo === '0' || paralelo === null || paralelo === ''){
+     
+             alert("Selecione Vendedora, obrigatório!!");
+           return false;
+    }
+           console.log(paralelo);
+               
+    if(acessorio === '0'||acessorio === null || acessorio === ''){
+	 
+	     alert("Selecione Vendedora, obrigatório!!");
+           return false;
+	 
+	 }  
+          console.log(acessorio);
+
+         
+                
+var url = retornoUrlItensVendedora()+'cadastrometa.php?codvend='+vendedora+'&valmetpar='+paralelo+'&valmetrev='+revista+'&valmetaces='+acessorio+'&periodoini='+dataini+'&periodofim='+datafim+'&usuario=1';
+	console.log(url);
+         
+     $jx.ajax({
+   //"http://192.168.0.251:8082/ERPBABITA-1.0/webresources/com.babita.modeller.viewvendasfaturamento"
+    url : url,
+    type : "GET",
+    dataType : "json",
+   // data : "param-no",
+	success : function(html){
+	 // var fat = $jx('.'+id);
+	  var fat1 = $jx('#tablemeta');
+	  var sql = "";
+	 
+	  sql = sql +('<table id="tablemeta2" class="table table-responsive table-bordered table-hover table-striped table-condensed input-sm"><thead><tr class="success"><th>CÓD.</th><th>NOME</th><th>DATA INÍCIAL</th><th> DATA FINAL</th><th>VALOR PARALELO</th><th>VALOR REVISTA</th><th>VALOR ACESSÓRIO</th><th>STATUS</th></tr></thead>');
+	
+	  cont = 1;
+      cont2 = 1;
+        var html = html.data;
+	  $jx.each(html,function(key,value){
+	  
+     if(cont > 1){
+     
+            
+		  sql = sql +("<tr><td>"+cont2+"</td><td>"+value.ven_cod+" - "+value.nome+"</td><td>"+value.met_periodo_ini+"</td><td>"+value.met_periodo_fim+"</td><td>"+tratarValor(value.met_valrev)+"</td><td>"+tratarValor(value.met_valpar)+"</td><td>"+tratarValor(value.met_valaces)+"</td><td>"+value.status+"</td></tr></tbody>");
+			
+			cont = 1;
+            cont2 ++;
+			}else{
+			sql = sql +("<tbody><tr><td>"+cont2+"</td><td>"+value.ven_cod+" - "+value.nome+"</td><td>"+value.met_periodo_ini+"</td><td>"+value.met_periodo_fim+"</td><td>"+tratarValor(value.met_valrev)+"</td><td>"+tratarValor(value.met_valpar)+"</td><td>"+tratarValor(value.met_valaces)+"</td><td>"+value.status+"</td></tr>");
+			
+			cont = 2;
+			cont2 ++;
+			}
+        
+	  });
+        
+	 //	fat.append("</table>")	
+		sql = sql + ("</table>");
+        fat1.empty();
+       
+		fat1.append(sql);
+  
+	
+	}, error : function(e) {
+	   alert(e);
+	}
+	});
+          
+    
+        
+  
+	 });
+        
+  $jx("#vinculado").change(function(){                 
+                                                                        
+      
+               var dados = jQuery(this).serialize();
+         
+             var vinculado = $jx("input[name='tipo']:checked").val();
+      
+           console.log(vinculado);
+        
+      
+              
+           var url = "http://192.168.0.31/consultameta.php?status="+vinculado;
+            
+
+                
+       
+      
+            console.log(url);
+                
+             $jx.ajax({
+           //"http://192.168.0.251:8082/ERPBABITA-1.0/webresources/com.babita.modeller.viewvendasfaturamento"
+            url : url,
+            type : "GET",
+            dataType : "json",
+           // data : "param-no",
+            success : function(html){
+             // var fat = $jx('.'+id);
+              var fat1 = $jx('#tablemeta');
+              var sql = "";
+                
+              sql = sql +('<table id="tablemeta2" class="table table-responsive table-bordered table-hover table-striped table-condensed input-sm"><thead><tr class="success"><th>CÓD.</th><th>NOME</th><th>DATA INÍCIAL</th><th> DATA FINAL</th><th>VALOR PARALELO</th><th>VALOR REVISTA</th><th>VALOR ACESSÓRIO</th><th>STATUS</th></tr></thead>');
+
+              cont = 1;
+              cont2 = 1;
+                var html = html.data;
+              $jx.each(html,function(key,value){
+
+             if(cont > 1){
+
+
+                  sql = sql +("<tr><td>"+cont2+"</td><td>"+value.ven_cod+" - "+value.nome+"</td><td>"+value.met_periodo_ini+"</td><td>"+value.met_periodo_fim+"</td><td>"+tratarValor(value.met_valrev)+"</td><td>"+tratarValor(value.met_valpar)+"</td><td>"+tratarValor(value.met_valaces)+"</td><td>"+value.status+"</td></tr></tbody>");
+
+                    cont = 1;
+                    cont2 ++;
+                    }else{
+                    sql = sql +("<tbody><tr><td>"+cont2+"</td><td>"+value.ven_cod+" - "+value.nome+"</td><td>"+value.met_periodo_ini+"</td><td>"+value.met_periodo_fim+"</td><td>"+tratarValor(value.met_valrev)+"</td><td>"+tratarValor(value.met_valpar)+"</td><td>"+tratarValor(value.met_valaces)+"</td><td>"+value.status+"</td></tr>");
+
+                    cont = 2;
+                    cont2 ++;
+                    }
+
+              });
+
+             //	fat.append("</table>")	
+                sql = sql + ("</table>");
+                fat1.empty();
+
+                fat1.append(sql);
+
+
+            }, error : function(e) {
+               alert(e);
+            }
+            });
+   
+     });
+        
+        
+        });
+        
+    </script>  
+    
+   <script language='JavaScript'>
+function SomenteNumero(e){
+ var tecla=(window.event)?event.keyCode:e.which;
+    
+ if((tecla>47 && tecla<58)||tecla === 44) return true;
+ else{
+ if (tecla==8 || tecla==0) return true;
+ else  return false;
+ }
+}
+</script> 
+   
+   <script>
+  $j(function() {
+   $j("#datepicker10").datepicker({
+      showButtonPanel: true
+    });
+  });
+  </script>
+    <script>
+  $j(function() {
+    $j("#datepicker11").datepicker({
+      showButtonPanel: true
+    });
+  });
+  </script>
+    
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                 <a class="navbar-brand" href="index.html"><img src="../img/Babita.png" alt="" class="img-rounded" style="height: 34px; width: 130px;"></a>
+              
+            </div>
+            <!-- /.navbar-header -->
+
+             <ul class="nav navbar-top-links navbar-right">
+              
+                <!-- /.dropdown -->
+                <li class="dropdown">
+                   
+                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                   <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user fa-fw"></i> Nome Usuário</a>
+                        </li>
+                       
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> Configurações</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Sair</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                    
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation" id="menunav">
+          
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="page-header" id=""><span style="font-family:Arial Rounded MT"><h1 id="titulo-estq">think! - <small>METAS DIÁRIAS VENDEDORAS !</small></h1></span></div>
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                <div class="col-md-4 col-xs-offset-1">
+                    <form role="form" style="margin-top: 30px;">                     
+                      <div class="form-group"> 
+                        <p id="metval" style="bold;">VENDEDORES :</p>   
+                      <select class="combobox input-sm" id="metvend" style="border-radius: 10px; width: 290px; height: 35px; margin-top: px; margin-left: px;">
+                      <option value="PA">SEM REGISTRO</option> 
+                      </select>  
+                          </div>         
+                          <div class="form-group form-data">
+                          <input type="text" class="form-control" style="width: 140px;" id="datepicker10" placeholder="DE" required />
+                          <input type="text" class="form-control" style="width: 140px; margin-top: -33px; margin-left: 150px;" id="datepicker11" placeholder="ATÉ" required />
+                          </div>                
+                                       
+                        </form>
+                </div> 
+                <div class="row">
+                    <div class="col-md-12 col-xs-offset-1">                         
+                        <div class="form-inline" role="form" style="margin-top: 20px;">
+                                                                            
+                           <label id="metval" style="margin-left: 20px;">VALOR DIÁRIO:</label>                          
+                          
+                            
+                          <div class="form-group">                           
+                            <input type="text" class="form-control" style="width: 140px; margin-left: 30px;" placeholder="VAL. REVISTA" onkeypress="return SomenteNumero(event);" id="metrev">
+                          </div>
+                         
+                        
+                          <div class="form-group">                           
+                            <input type="text" class="form-control" style="width: 140px; margin-left: 10px;" placeholder="VAL. PARALELO" onkeypress="return SomenteNumero(event);" id="metpara">
+                          </div>
+                         
+                             
+                          <div class="form-group">                           
+                            <input type="text" class="form-control" style="width: 140px; margin-left: 10px;" placeholder="VAL. ACESSÓRIO" onkeypress="return SomenteNumero(event);" id="metacess">
+                          </div>
+                         
+                           
+                          <div class="form-group">                           
+                            <button type="submit" id="bntmet" class="btn btn-success" style="border-radius: 10px; margin-left: 10px;">SALVAR</button>
+                          </div>
+                        
+                        </div>
+                    </div>    
+                </div>    
+            </div>
+            <div class="row">     
+                  <div class="col-xs-10 col-xs-offset-1">
+                     
+                                    <div class="" id="vinculado">
+                                         <label id="metval" style="margin-left: 10px; margin-top: 30px;">STATUS:</label>  
+                                    <label class="radio-inline" style="margin-left: 30px;">
+                                      <input type="radio" name="tipo" value="1" checked="checked">ATIVADO
+                                    </label>
+                                    <label class="radio-inline">
+                                      <input type="radio" name="tipo" value="0">DESATIVADO
+                                    </label>
+                             </div>
+                    <div  style="overflow: auto; height: 200px;  width: px; margin-top: 20px;" class="table" id="tablemeta">
+
+                 </div>
+                           
+              </div>        
+           
+          
+             <!-- /.row -->
+             </div>
+        
+                   
+                 
+                      <!--
+                        <div class="copyright">
+                           <div class="container">
+                            <div class="row">
+                                 <div id="babita" class="col-md-10">
+                                   <span style="font-family:Arial Rounded MT"><p>&copy; 2015 - think! - Todos os direitos reservados.</p></span>
+                                </div>
+                            </div>
+                        </div>
+                      </div> -->
+                   
+              
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="../bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="../bower_components/raphael/raphael-min.js"></script>
+
+
+</body>
+
+</html>

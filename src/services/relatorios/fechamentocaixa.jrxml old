@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="fechamentocaixa" language="javascript" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isSummaryWithPageHeaderAndFooter="true" isFloatColumnFooter="true" whenResourceMissingType="Empty" uuid="ff2fb35e-0995-4363-98e7-d2b7e3c41675">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="table">
+		<box>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Table Dataset 1" uuid="991c8deb-e144-4b98-94a9-719e67a0bb6c"/>
+	<parameter name="sql" class="java.lang.String">
+		<defaultValueExpression><![CDATA[null]]></defaultValueExpression>
+	</parameter>
+	<parameter name="loja" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["/home/usuario/Área de Trabalho/Jaspers/"]]></defaultValueExpression>
+	</parameter>
+	<queryString language="plsql">
+		<![CDATA[select caipag_data_caixa, forpag_desc, caipag_cpfcnpj, loj_num, loj_nom, caipag_valor, caipag_valor1, caipag_com_desconto,
+caipag_valor_restante, caipag_valor_total, caipag_num_autorizacao,
+       caipag_parcelas, parcelas_relatorio, bancar_desc, caipag_cod_fornecedor, caipag_lancado_valor_total,
+       caipag_caixa_fechado, caixa_fechado, caipag_desconto, caipag_loja_parceira, caipag_nomeclie, loja_parceira_nome, caipag_valor_desconto,
+TRIM(replace(replace(replace(to_char(valor_total_pedidos,'"R$"999G990D99'),',','|'),'.',','),'|','.')) as valor_total_pedidos ,
+TRIM(replace(replace(replace(to_char(pedidos_com_desconto,'"R$"999G990D99'),',','|'),'.',','),'|','.')) as pedidos_com_desconto ,
+TRIM(replace(replace(replace(to_char(caixa_com_desconto,'"R$"999G990D99'),',','|'),'.',','),'|','.')) as caixa_com_desconto ,
+TRIM(replace(replace(replace(to_char(soma_desconto,'"R$"9G990D99'),',','|'),'.',','),'|','.')) as soma_desconto,
+TRIM(replace(replace(replace(to_char(caixas_negativo,'"R$"9G990D99'),',','|'),'.',','),'|','.')) as caixas_negativo
+from (
+SELECT caipag_data_caixa::date, forpag_desc,
+case when(fn_cnpj_cpf(caipag_cpfcnpj) = 'CNPJ') THEN  formata_cnpj(caipag_cpfcnpj) else
+(case when(fn_cnpj_cpf(substr(caipag_cpfcnpj,4,14)) = 'CPF') THEN formata_cpf(substr(caipag_cpfcnpj,4,14)) else caipag_cpfcnpj end) end as caipag_cpfcnpj,
+ erp_caixa_pagamento.loj_num, loja.loj_nom, caipag_valor, TRIM(replace(replace
+ (replace(to_char(caipag_valor,'"R$"999G990D99'),',','|'),'.',','),'|','.'))::character varying as caipag_valor1,
+       case when caipag_desconto = 0.00 then caipag_valor::numeric(10,2) else (caipag_valor-((caipag_desconto/100)*caipag_valor))::numeric(10,2) end as caipag_com_desconto,
+       caipag_valor_restante, caipag_valor_total, caipag_num_autorizacao,
+       caipag_parcelas, case when erp_caixa_pagamento.bancar_cod = 0 then '' else caipag_parcelas||'x' end::character varying as parcelas_relatorio,
+       case when erp_caixa_pagamento.bancar_cod = 0 then '' else bancar_desc end, caipag_cod_fornecedor, caipag_lancado_valor_total,
+       caipag_caixa_fechado, case when caipag_caixa_fechado = 0 then 'CAIXA ABERTO' else 'CAIXA FECHADO' end as  caixa_fechado, case when caipag_desconto = 0.00 then ''::character varying else (caipag_desconto||'%'||' R$')::character varying end as caipag_desconto,
+       coalesce(caipag_loja_parceira,'') as caipag_loja_parceira, substring(caipag_nomeclie,0,20) as caipag_nomeclie, coalesce(lj_parceira.loj_nom, '') as loja_parceira_nome,
+       coalesce(null,caipag_valor_desconto) as caipag_valor_desconto
+  FROM erp_caixa_pagamento
+  left join erp_forma_pagamento on erp_caixa_pagamento.forpag_cod = erp_forma_pagamento.forpag_cod
+  left join erp_bandeiras_cartao on erp_bandeiras_cartao.bancar_cod = erp_caixa_pagamento.bancar_cod
+  left join erp_lojas lj_parceira on lj_parceira.loj_num::character varying = erp_caixa_pagamento.caipag_loja_parceira
+  left join erp_lojas loja on loja.loj_num = erp_caixa_pagamento.loj_num
+where caipag_data_caixa = '$P{sql}' order by forpag_desc, caipag_nomeclie) as a full join (
+select valor_total_pedidos, (valor_total_pedidos - coalesce(soma_desconto,0.00))::numeric(10,2) as pedidos_com_desconto,  caixa_com_desconto, coalesce(soma_desconto,0.00) as soma_desconto,
+coalesce(caixas_negativo,0.00) as caixas_negativo from (
+select sum((coalesce(q.valor_total_pedidos,0) - coalesce(g.valor_total_trocas,0)))::numeric(10,2) as valor_total_pedidos
+from ( select pedidos.nomeclie, sum(pedidos.totalgeral)
+as valor_total_pedidos, pedidos.doctoclie from pedidos where pedidos.data::date = '$P{sql}'  group by  nomeclie,
+pedidos.doctoclie) as q full join (select trocas.nomeclie, sum(trocas.totalgeral)
+as valor_total_trocas, trocas.doctoclie from trocas where  trocas.data::date = '$P{sql}'
+group by trocas.nomeclie, trocas.doctoclie) as g on g.doctoclie = q.doctoclie) pedido
+inner join
+(
+select caixa_com_desconto, soma_desconto, caixas_negativo from
+(SELECT sum(caipag_valor-coalesce(caipag_valor_desconto,0))::numeric(10,2) as caixa_com_desconto,
+sum(caipag_valor_desconto)::numeric(10,2) as soma_desconto from erp_caixa_pagamento where caipag_data_caixa::date = '$P{sql}')   as totais full join
+(SELECT sum(caipag_valor) as caixas_negativo from erp_caixa_pagamento where caipag_data_caixa::date = '$P{sql}' and (forpag_cod = 15 or forpag_cod = 16) ) as negativos on 1=1)caixa on 1 = 1)as b on 1 = 1]]>
+	</queryString>
+	<field name="caipag_data_caixa" class="java.sql.Date"/>
+	<field name="forpag_desc" class="java.lang.String">
+		<fieldDescription><![CDATA[(Dinheiro, Cartao Credito, Cheque)]]></fieldDescription>
+	</field>
+	<field name="caipag_cpfcnpj" class="java.lang.String"/>
+	<field name="loj_num" class="java.lang.Integer"/>
+	<field name="loj_nom" class="java.lang.String"/>
+	<field name="caipag_valor" class="java.math.BigDecimal"/>
+	<field name="caipag_valor1" class="java.lang.String"/>
+	<field name="caipag_com_desconto" class="java.math.BigDecimal"/>
+	<field name="caipag_valor_restante" class="java.math.BigDecimal"/>
+	<field name="caipag_valor_total" class="java.math.BigDecimal"/>
+	<field name="caipag_num_autorizacao" class="java.lang.String"/>
+	<field name="caipag_parcelas" class="java.lang.Integer"/>
+	<field name="parcelas_relatorio" class="java.lang.String"/>
+	<field name="bancar_desc" class="java.lang.String"/>
+	<field name="caipag_cod_fornecedor" class="java.lang.Integer"/>
+	<field name="caipag_lancado_valor_total" class="java.lang.Integer">
+		<fieldDescription><![CDATA[0 para não lançado valor total // 1 para lançado valor total]]></fieldDescription>
+	</field>
+	<field name="caipag_caixa_fechado" class="java.lang.Integer">
+		<fieldDescription><![CDATA[0 para caixa não lançado // 1 para caixa lançado e fechado]]></fieldDescription>
+	</field>
+	<field name="caixa_fechado" class="java.lang.String"/>
+	<field name="caipag_desconto" class="java.lang.String"/>
+	<field name="caipag_loja_parceira" class="java.lang.String"/>
+	<field name="caipag_nomeclie" class="java.lang.String"/>
+	<field name="loja_parceira_nome" class="java.lang.String"/>
+	<field name="caipag_valor_desconto" class="java.math.BigDecimal"/>
+	<field name="valor_total_pedidos" class="java.lang.String"/>
+	<field name="pedidos_com_desconto" class="java.lang.String"/>
+	<field name="caixa_com_desconto" class="java.lang.String"/>
+	<field name="soma_desconto" class="java.lang.String"/>
+	<field name="caixas_negativo" class="java.lang.String"/>
+	<variable name="total_grupo" class="java.lang.Double" resetType="Group" resetGroup="documento" calculation="Sum">
+		<variableExpression><![CDATA[$F{caipag_com_desconto}]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<variable name="loja" class="java.lang.String"/>
+	<variable name="total_consiste" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{caipag_valor}]]></variableExpression>
+	</variable>
+	<variable name="total_caixa" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{caipag_com_desconto}]]></variableExpression>
+	</variable>
+	<variable name="total_desconto" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{caipag_valor_desconto}]]></variableExpression>
+		<initialValueExpression><![CDATA[0.00]]></initialValueExpression>
+	</variable>
+	<variable name="valor_total_pedidos_var" class="java.math.BigDecimal" resetType="None"/>
+	<group name="documento">
+		<groupExpression><![CDATA[$F{forpag_desc}]]></groupExpression>
+		<groupHeader>
+			<band height="21">
+				<textField>
+					<reportElement x="0" y="0" width="463" height="10" uuid="f19a67da-a9a7-4ef6-badb-3fd0925112dc"/>
+					<textElement verticalAlignment="Bottom">
+						<font fontName="Arial" size="8" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["Forma de Pagamento: "+$F{forpag_desc}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="181" y="10" width="40" height="10" uuid="da64adcc-97cf-4444-8f30-5393a86eb4e5"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[      DOC]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="226" y="10" width="54" height="10" uuid="9cecdb4d-f7d7-473f-a54e-95f4ee1a3f3b"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[BANDEIRA]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="291" y="10" width="44" height="10" uuid="ef016880-5941-4e9c-842f-4e71da0ce306"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[  PARC]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="4" y="10" width="27" height="10" uuid="7421166e-f22d-47a2-88f3-5d663052e696"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[CPF]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="335" y="10" width="44" height="10" uuid="5c9db85a-18c5-4643-aa16-3d19f8562bd0"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[VALOR]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="87" y="10" width="68" height="10" uuid="0397343a-a3c4-44e9-b1e2-95eea50f7478"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[NOME]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="379" y="10" width="48" height="10" uuid="f6efb229-fcd7-4487-8ce8-e2e10e1d3d44"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[DESC]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="463" y="10" width="92" height="10" uuid="55f459ac-4c93-439c-91fb-90b9250a1f87"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[OBSERVAÇÕES]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="31" y="10" width="36" height="10" uuid="c68e6319-168d-414a-aa63-93590234b3c4"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Arial" size="8"/>
+					</textElement>
+					<text><![CDATA[CNPJ]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="13">
+				<textField pattern="###0.00" isBlankWhenNull="false">
+					<reportElement x="353" y="0" width="108" height="12" uuid="0d5baa42-3f2b-4655-8140-b11d3475e3e7"/>
+					<textElement verticalAlignment="Top">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$V{total_grupo}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="290" y="0" width="43" height="12" uuid="8706d79b-b02f-4174-9d7e-816a5281ea13"/>
+					<textElement textAlignment="Right" verticalAlignment="Top">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TOTAL]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="328" y="0" width="25" height="12" uuid="b3a9ae7e-9a6c-4143-a92d-544ba02b71be"/>
+					<textElement textAlignment="Right" verticalAlignment="Top">
+						<font fontName="Arial" size="10" isBold="true"/>
+					</textElement>
+					<text><![CDATA[RS ]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="86" splitType="Stretch">
+			<staticText>
+				<reportElement x="211" y="64" width="116" height="20" uuid="9f344f16-d5c6-4d1c-acf9-c81a58e44772"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL CAIXA: ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="42" width="140" height="20" uuid="40e95419-7cb2-4e69-831d-d964b299844a"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL CONSISTE: ]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="306" y="64" width="129" height="20" uuid="50502090-15bc-4f20-9074-06318ab94171"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{caixa_com_desconto}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" isBlankWhenNull="false">
+				<reportElement x="319" y="41" width="79" height="20" uuid="164c6328-4785-4746-a224-003c32c4f035"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{soma_desconto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="211" y="41" width="116" height="20" uuid="b607b2d5-2676-468e-8e37-3afa0f5dc565"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL DESCONTOS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="3" y="64" width="96" height="20" uuid="5272e3ad-701a-4657-b9ee-4f99ec25b59c"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL DO DIA: ]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="87" y="64" width="123" height="20" uuid="f7db40cb-81e0-4ed9-b012-0fff4cebe695"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pedidos_com_desconto}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="99" y="42" width="111" height="20" uuid="e681a312-6fcb-4c50-a202-a961aa70d8f1"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valor_total_pedidos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="555" height="20" uuid="6692ba17-8cb9-4d1d-9839-39eca9e3b084"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[THINK! - FECHAMENTO DE CAIXA]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="43" y="21" width="84" height="20" uuid="1bc11f9f-38c4-409c-ab48-502a897b656f"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{loj_nom}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="21" width="43" height="20" uuid="a6d4a9f6-7cb8-45d8-9f9d-8813054979ba"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LOJA:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="1" y="40" width="555" height="1" uuid="cff69c0e-ac2b-45b5-98a7-272d33ee5a7a"/>
+			</line>
+			<textField pattern="dd/MM/yyyy HH:mm:ss">
+				<reportElement x="455" y="0" width="100" height="20" uuid="c551ec0e-3e1b-413f-9e76-9050ba1abf8b"/>
+				<textElement>
+					<font fontName="Arial"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="112" y="21" width="98" height="20" uuid="fc190810-c75f-4638-9111-401c958dfab5"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DATA DO CAIXA:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="210" y="21" width="122" height="20" uuid="735f5f1e-574f-4a8d-840b-0ebc3ebce3ac"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{caipag_data_caixa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="353" y="21" width="118" height="20" uuid="d4283995-96bb-4869-bd10-7b127579b218"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{caixa_fechado}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="85" width="555" height="1" uuid="e3a76c37-433d-4d44-b705-b0b0ce22d935"/>
+			</line>
+			<staticText>
+				<reportElement x="394" y="41" width="102" height="20" uuid="0be82ecd-1a80-41d5-bf88-707b683b8b53"/>
+				<textElement verticalAlignment="Top">
+					<font fontName="Arial" size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL DIF. PAG.: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="484" y="41" width="71" height="20" uuid="7c329d69-3c28-4d52-94cc-a90f6329e8de"/>
+				<textElement>
+					<font fontName="Arial" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{caixas_negativo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="13" splitType="Stretch">
+			<textField>
+				<reportElement x="184" y="1" width="47" height="10" uuid="9e454e98-7dfd-4ce0-b47b-6037aa629153"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{caipag_num_autorizacao}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="231" y="1" width="70" height="10" uuid="a99efd8a-bf5a-49b2-a027-4424ecd52524"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{parcelas_relatorio} + " " + $F{bancar_desc}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="301" y="1" width="34" height="10" uuid="33919abd-b71e-434d-8661-978552976a7b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{loja_parceira_nome}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="1" width="84" height="10" uuid="05d4852f-1efa-45fc-87aa-ca2b20bed80d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{caipag_cpfcnpj}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement key="valor" x="335" y="1" width="59" height="10" uuid="32c9ab6c-f2ac-452a-bf8a-c4027f7e76aa"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{caipag_valor1}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="1" y="11" width="555" height="1" uuid="c2151203-8f63-4995-9b5d-54be22e4858d"/>
+			</line>
+			<textField>
+				<reportElement x="84" y="1" width="100" height="10" uuid="a21168d1-8de5-45e5-9a6e-b8c405b5c627"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{caipag_nomeclie}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="394" y="1" width="41" height="10" uuid="4e328087-ddd6-4a41-97ee-e7098761beaf"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{caipag_desconto}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="431" y="1" width="40" height="10" uuid="e6d9d3ed-fdf6-44db-b384-916e5fbb4c0d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="8" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{caipag_valor_desconto}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="13" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="11" splitType="Stretch">
+			<textField>
+				<reportElement x="463" y="0" width="31" height="10" uuid="9b6c27b8-4740-45d8-a935-101cf113dda3"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="525" y="0" width="30" height="10" uuid="e774da0f-6473-41b0-8416-15a35337b59f"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="494" y="0" width="31" height="10" uuid="6a183876-471d-48cd-a94d-87c603909043"/>
+				<textElement>
+					<font fontName="Arial" size="8"/>
+				</textElement>
+				<text><![CDATA[de]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="12" splitType="Stretch">
+			<printWhenExpression><![CDATA[$V{total_caixa} > 0.00]]></printWhenExpression>
+		</band>
+	</summary>
+</jasperReport>

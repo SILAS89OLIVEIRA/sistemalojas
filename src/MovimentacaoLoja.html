@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+ 
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="css/bootstrap.css"> 
+
+  <link rel="stylesheet" href="css/style.css"> 
+  <link rel="stylesheet" href="css/jquery-ui.css"> 
+
+<link href="../node_modules/material-icons/iconfont/material-icons.css" rel="stylesheet">
+
+  <link rel="shortcut icon" href="img/favicon/android-icon-48x48.png" />
+
+ <link type="text/css" rel="stylesheet" href="css/MovimentacaoLoja.css"  media="screen,projection"/>
+
+
+  <title>THINK! LOJAS | Movimentação Loja</title>
+</head>
+<body>
+
+
+      
+    <div class="wrapper">
+        <!-- Sidebar Holder -->
+     <nav id="sidebar">
+            <div class="sidebar-header">
+                  <a class="navbar-brand" href="indexlojas.html"><img class="img-fluid" src="img/logo_branca1.png"/></a></a>
+
+            </div>
+
+            <ul class="list-unstyled components">
+
+                <li>
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="material-icons left-silas">attach_money</i> Metas</a>
+                    <ul class="collapse list-unstyled" id="homeSubmenu">
+                        <li>
+                            <a href="indexlojas.html">Meta Lojas</a>
+                        </li>
+                        <li>
+                            <a href="acompanhamentodemetas_vendedora.html">Meta Vendedoras</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="MovimentacaoLoja.html"><i class="material-icons left-silas"> store</i>Movimentações Loja</a>
+                    <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle"><i class="material-icons right-silas">local_shipping</i>Estoques</a>
+                    <ul class="collapse list-unstyled" id="pageSubmenu">
+                        <li>
+                            <a href="EstoqueLoja.html">Estoque Loja</a>
+                        </li>
+                        <li>
+                            <a href="estoquefornecedor.html">estoque Fornecedor</a>
+                        </li>
+
+                    </ul>
+                </li>
+                <li>
+                    <a href="PedidoTroca.html"><i class="material-icons left-silas">compare_arrows</i> Pedido - Troca</a>
+                </li>
+                <li>
+                    <a href="PedidoTrocaCaixa.html"><i class="material-icons left-silas">add_shopping_cart</i> Lançamento Caixa</a>
+                </li>
+                                <li>
+                    <a href="Brinde.html"><i class="material-icons left-silas">redeem</i> Brinde</a>
+                </li>
+            </ul>
+
+           <!-- <ul class="list-unstyled CTAs">
+                <li>
+                    <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a>
+                </li>
+                <li>
+                    <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a>
+                </li>
+            </ul>-->
+        </nav>
+
+        <!-- Page Content Holder -->
+
+              <div id="content">
+
+                <nav class="navbar navbar-expand-lg navbar-light bg-primary">
+                  <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="navbar-btn">
+                      <span></span>
+                      <span></span>
+                      <span></span>
+                    </button>
+
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                      <ul class="nav navbar-nav ml-auto">
+                         <!--   <li class="nav-item active">
+                                <a class="nav-link" href="#">Page</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Page</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Page</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Page</a>
+                              </li>-->
+                            </ul>
+                          </div>
+                        </div>
+                      </nav>
+
+
+ <main>
+
+
+
+
+<div class="container-fluid"> 
+
+    <div class="row">
+      <!--retirar pedding left do bootstrap css   (padding-left: 0px;) no .col-12-->
+      <div class = "col-12">
+        <h1 class="page-header">Movimentação Loja</h1>
+
+ </div>
+
+
+      </div>   
+
+
+
+
+ <div class="clearfix"></div>
+
+                <div class="row">
+                    <div class="col-5">
+                        <label  class="col-12 black-text">Tipo de Movimentação</label>
+                        <div class="row">
+                            <div  class="col-6">
+
+                                <p>
+                                    <input class="with-gap" name="tipo2" value="0" type="radio" onclick="liberarFiltros();" id="entradaMovLoj"  />
+                                    <label class="black-text" for="entradaMovLoj">Entrada</label>
+                                </p>
+                                <p>
+                                    <input class="with-gap" name="tipo2" value="1" type="radio" onclick="liberarFiltros();" id="pedidosMovLoj"  />
+                                    <label class="black-text" for="pedidosMovLoj">Pedidos</label>
+                                </p>
+                                <p>
+                                    <input class="with-gap" name="tipo2" value="2" type="radio" onclick="liberarFiltros();" id="trocasMovLoj"  />
+                                    <label class="black-text" for="trocasMovLoj">Trocas</label>
+                                </p>
+                                <p>
+                                    <input class="with-gap" name="tipo2" value="4" type="radio" onclick="liberarFiltros();" id="devolucaoMovLoj"  />
+                                    <label class="black-text" for="devolucaoMovLoj">Devoluções</label>
+                                </p>
+                                <p>
+                                    <input class="with-gap" name="tipo2" value="5" type="radio" onclick="esconderFiltros();" id="cancelamentoMovLoj"  />
+                                    <label  class="black-text" for="cancelamentoMovLoj">Cancelamento</label>
+                                </p>
+                            </div>
+
+                           <div  class="col-6">
+                                <div class="col-12" style="padding-left: 0;">
+                                    <label class="black-text">De:</label>
+                                    <input type="text" id="datepicker3" class="datepicker">
+                                </div>
+
+                                <div class="col-12" style="padding-left: 0;">
+                                    <label class="black-text">Até:</label>
+                                    <input type="text" id="datepicker4" class="datepicker" >
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+<div class="clearfix"></div>
+
+<div id="filtros" class="filtros">
+
+
+<div class="row">
+
+          <div class="input-field col-6">
+           <label for="fornecedor" class="black-text"><b>Fornecedores</b></label>
+           <input type="text" class="form-control input-sm" id="fornecedor" />
+          </div>
+
+              <div class="input-field col-6">
+                            <label for="vendedor" class="black-text"><b>Vendedores</b></label>
+                            <input type="text" class="form-control input-sm" id="vendedor" />
+                        </div>
+</div>
+<div class="row">
+                        <div class="input-field col-6">
+                            <label for="nomeClie" class="black-text"><b>Nome Cliente</b></label>
+                            <input type="text" class="form-control input-sm" id="nomeClie" />
+                        </div>
+
+                        <div class="input-field col-6">
+                            <label for="cpfClie" class="black-text"><b>CPF/CNPJ</b></label>
+                            <input type="text" class="form-control input-sm" id="cpfClie" />
+                        </div>
+ </div>             </div>
+
+
+                        
+         <div class="col-12">
+              <button type="submit" id="filtro" class="btn btn-primary">Filtrar <i class="material-icons right">send</i></button>
+          </div>
+                    
+</div>
+
+
+
+
+<div class="col-7">
+
+                        <div class="col-12">
+                            <div  style="overflow: auto; height: 450px;" id="table1">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</main>
+
+
+
+
+
+
+<script src="js/jquery.js"></script>
+
+<script src="js/jquery-ui.js"></script>
+
+
+
+<script src="js/bootstrap.js"></script>
+
+
+
+<script type="text/javascript" charset="UTF-8" src="js/custom/MovimentacaoLoja.js"></script> 
+
+
+
+<script src="js/layoutbase.js"></script>
+
+
+       
+   
+
+
+<script type="text/javascript" charset="UTF-8" src="js/util.js"></script>
+     
+
+
+
+
+
+
+</body>
+</html>
+
+
+
+
+
+
+
